@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,36 +9,39 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class ProductManager : IProductService
+    public class ProductManager(IProductDal productDal) : IProductService
     {
+        private readonly IProductDal _productDal = productDal;
+
         public void Add(Product product)
         {
-            throw new NotImplementedException();
+            // Business Codes
+            _productDal.Add(product);
         }
 
         public void Delete(Product product)
         {
-            throw new NotImplementedException();
+            _productDal.Delete(product);
         }
 
-        public Product GetById(int id)
+        public Product GetById(int productId)
         {
-            throw new NotImplementedException();
+            return _productDal.Get(p => p.ProductID==productId);
         }
 
         public List<Product> GetList()
         {
-            throw new NotImplementedException();
+            return _productDal.GetList().ToList();
         }
 
         public List<Product> GetListByCategory(int categoryId)
         {
-            throw new NotImplementedException();
+            return _productDal.GetList(p => p.CategoryID==categoryId).ToList();
         }
 
         public void Update(Product product)
         {
-            throw new NotImplementedException();
+            _productDal.Update(product);
         }
     }
 }
