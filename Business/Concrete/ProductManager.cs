@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants.Messages;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -18,37 +19,37 @@ namespace Business.Concrete
         {
             // Business Codes
             _productDal.Add(product);
-            return new SuccessResult();
+            return new SuccessResult(ProductMessages.ProductAdded);
         }
 
         public IResult Delete(Product product)
         {
             _productDal.Delete(product);
-            return new SuccessResult();
+            return new SuccessResult(ProductMessages.ProductDeleted);
         }
 
         public IDataResult<Product> GetById(int productId)
         {
             var result = _productDal.Get(p => p.ProductID==productId);
-            return new SuccessDataResult<Product>(result);
+            return new SuccessDataResult<Product>(result, ProductMessages.ProductGet);
         }
 
         public IDataResult<List<Product>> GetList()
         {
             var result = _productDal.GetList().ToList();
-            return new SuccessDataResult<List<Product>>(result);
+            return new SuccessDataResult<List<Product>>(result, ProductMessages.ProductsListed);
         }
 
         public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
             var result = _productDal.GetList(p => p.CategoryID==categoryId).ToList();
-            return new SuccessDataResult<List<Product>>(result);
+            return new SuccessDataResult<List<Product>>(result, ProductMessages.ProductsListed);
         }
 
         public IResult Update(Product product)
         {
             _productDal.Update(product);
-            return new SuccessResult();
+            return new SuccessResult(ProductMessages.ProductUpdated);
         }
     }
 }
