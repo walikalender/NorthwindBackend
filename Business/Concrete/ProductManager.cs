@@ -14,7 +14,7 @@ namespace Business.Concrete
     public class ProductManager(IProductDal productDal) : IProductService
     {
         private readonly IProductDal _productDal = productDal;
-
+        
         public IResult Add(Product product)
         {
             // Business Codes
