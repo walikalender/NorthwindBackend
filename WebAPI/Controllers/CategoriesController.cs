@@ -7,25 +7,14 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController(IProductService productService) : ControllerBase
+    public class CategoriesController(ICategoryService categoryService) : ControllerBase
     {
-        private readonly IProductService _productService = productService;
+        private readonly ICategoryService _categoryService = categoryService;
 
         [HttpGet("getall")]
         public IActionResult GetList()
         {
-            var result = _productService.GetList();
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
-            return BadRequest(result.Message);
-        }
-
-        [HttpGet("getbycategory")]
-        public IActionResult GetByCategory(int categoryId)
-        {
-            var result = _productService.GetListByCategory(categoryId);
+            var result = _categoryService.GetList();
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -34,9 +23,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getbyid")]
-        public IActionResult GetById(int productId)
+        public IActionResult GetById(int categoryId)
         {
-            var result = _productService.GetById(productId);
+            var result = _categoryService.GetById(categoryId);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -45,9 +34,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Product product)
+        public IActionResult Add(Category category)
         {
-            var result = _productService.Add(product);
+            var result = _categoryService.Add(category);
             if (result.Success)
             {
                 return Ok(result);
@@ -56,10 +45,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(int productId)
+        public IActionResult Delete(int categoryId)
         {
-            var deletedEntity = _productService.GetById(productId);
-            var result = _productService.Delete(deletedEntity.Data);
+            var deletedEntity = _categoryService.GetById(categoryId);
+            var result = _categoryService.Delete(deletedEntity.Data);
 
             if (result.Success)
             {
@@ -69,9 +58,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Product product)
+        public IActionResult Update(Category category)
         {
-            var result = _productService.Update(product);
+            var result = _categoryService.Update(category);
             if (result.Success)
             {
                 return Ok(result);
