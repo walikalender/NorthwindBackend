@@ -13,10 +13,10 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class AuthManager(IUserService userService) : IAuthService
+    public class AuthManager(IUserService userService, ITokenHelper tokenHelper) : IAuthService
     {
         private readonly IUserService _userService = userService;
-        ITokenHelper _tokenHelper;
+        ITokenHelper _tokenHelper = tokenHelper;
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
