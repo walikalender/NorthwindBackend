@@ -16,5 +16,10 @@ namespace Business.Constants.Messages
         public static string UsersClaimsListed = "Kullanıcıler Rolleri Başarıyla Listelendi";
         public static string UserGet = "Kullanıcı Başarıyla Getirildi";
         public static string UserNotFound = "Böyle bir kullanıcı mevcut değil";
+        public static string PasswordError = "Şifre Hatalı!";
+        public static string SuccessfulLogin = "Sisteme Giriş Başarılı";
+        public static string UserAlreadyExisits = "Bu Kullanıcı zaten mevcut!";
+        public static string UserRegistered = "Kullanıcı Başarıyla Kayıt Oldu";
+        public static string AccessTokenCreated = "AccessToken Başarıyla Oluşturuldu";
     }
 }
