@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants.Messages;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Transaction;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -18,10 +20,9 @@ namespace Business.Concrete
     {
         private readonly IProductDal _productDal = productDal;
 
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            ValidationTool.Validate(new ProductValidator(),product);
-            // Business Codes
             _productDal.Add(product);
             return new SuccessResult(ProductMessages.ProductAdded);
         }
@@ -48,6 +49,13 @@ namespace Business.Concrete
         {
             var result = _productDal.GetList(p => p.CategoryID==categoryId).ToList();
             return new SuccessDataResult<List<Product>>(result, ProductMessages.ProductsListed);
+        }
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(Product product)
+        {
+            _productDal.Update(product);
+            _productDal.Add(product);
+            return new SuccessResult(ProductMessages.ProductUpdated);
         }
 
         public IResult Update(Product product)
