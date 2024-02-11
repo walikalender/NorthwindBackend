@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants.Messages;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
@@ -20,6 +21,8 @@ namespace Business.Concrete
     {
         private readonly IProductDal _productDal = productDal;
 
+        [CacheRemoveAspect(pattern:"IProductService.Get")]
+        [CacheRemoveAspect(pattern:"ICategoryService.Get")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
@@ -44,7 +47,7 @@ namespace Business.Concrete
             var result = _productDal.GetList().ToList();
             return new SuccessDataResult<List<Product>>(result, ProductMessages.ProductsListed);
         }
-
+        [CacheAspect(duration:1)]
         public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
             var result = _productDal.GetList(p => p.CategoryID==categoryId).ToList();
