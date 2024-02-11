@@ -1,6 +1,9 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.DependencyResolvers.Autofac;
+using Core.DependencyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -37,7 +40,7 @@ static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilde
             // UseAuthorization should come after UseRouting
             app.UseAuthentication(); // bir yere girmek için anahtardýr. (ortama giriþ anahtarý)
             app.UseAuthorization(); // anahtarla girdiðin yerde ne yapýlabilir (yetki)
-           
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -81,6 +84,10 @@ static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilde
                     IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                 };
             });
+        services.AddDependencyResolvers(new ICoreModule[]
+        {
+            new CoreModule()
+        });
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
     });
