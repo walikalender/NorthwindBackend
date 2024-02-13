@@ -42,7 +42,7 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
             _cache.Remove(key);
         }
 
-        public void RemoveByPAttern(string pattern)
+        public void RemoveByPattern(string pattern)
         {
             var cacheEntriesCollectionDefinition = typeof(MemoryCache).GetProperty("EntriesCollection", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 

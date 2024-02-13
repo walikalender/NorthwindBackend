@@ -1,5 +1,6 @@
 ﻿using Core.CrossCuttingConcerns.Caching;
 using Core.CrossCuttingConcerns.Caching.Microsoft;
+using Core.CrossCuttingConcerns.Caching.Redis;
 using Core.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,8 +15,8 @@ namespace Core.DependencyResolvers
     {
         public void Load(IServiceCollection services)
         {
-            services.AddMemoryCache();
-            services.AddSingleton<ICacheManager,MemoryCacheManager>();  
+            services.AddStackExchangeRedisCache(options => options.Configuration="localhost:1453");
+            services.AddSingleton<ICacheManager,RedisCacheManager>();  
         }
     }
 }

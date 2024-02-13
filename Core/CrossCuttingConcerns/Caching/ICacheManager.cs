@@ -13,6 +13,6 @@ namespace Core.CrossCuttingConcerns.Caching
         void Add(string key, object data, int duration);
         bool IsAdd(string key);
         void Remove(string key);
-        void RemoveByPAttern(string pattern);
+        void RemoveByPattern(string pattern);
     }
 }
