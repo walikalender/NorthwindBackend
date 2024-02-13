@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Core.Entities.Concrete;
+using Core.Extensions;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -8,14 +10,17 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController(IProductService productService) : ControllerBase
+    public class ProductsController(IProductService productService,
+                                    IHttpContextAccessor httpContextAccessor) : ControllerBase
     {
         private readonly IProductService _productService = productService;
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
         [HttpGet("getall")]
-        [Authorize(Roles = "Product.List")]
+       // [Authorize(Roles = "Product.List")]
         public IActionResult GetList()
         {
+            User.ClaimsRoles();
             var result = _productService.GetList();
             if (result.Success)
             {
