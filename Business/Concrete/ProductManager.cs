@@ -3,6 +3,7 @@ using Business.BusinessAspect.Autofac;
 using Business.Constants.Messages;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
@@ -43,13 +44,15 @@ namespace Business.Concrete
             return new SuccessDataResult<Product>(result, ProductMessages.ProductGet);
         }
 
-        [SecuredOperation("Product.GetList,Admin")]
+        [PerformanceAspect(1)]
         public IDataResult<List<Product>> GetList()
         {
-            
+            Thread.Sleep(5000);
             var result = _productDal.GetList().ToList();
             return new SuccessDataResult<List<Product>>(result, ProductMessages.ProductsListed);
         }
+        
+        [SecuredOperation("Product.GetList,Admin")]
         [CacheAspect(duration:1)]
         public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
