@@ -10,5 +10,6 @@ namespace Core.Utilities.Messages
     {
         public static string WrongValidationType = "Wrong Validation Type";
         public static string AuthorazitonDenied = "Yetkiniz Yok";
+        internal static string WrongLoggerType = "Wrong Logger Type";
     }
 }
