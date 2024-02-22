@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework.Contrexts
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=NorthwindContext;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Northwind;Integrated Security=True");
         }
 
         public DbSet<Product> Products { get; set; }
