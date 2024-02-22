@@ -3,9 +3,11 @@ using Business.BusinessAspect.Autofac;
 using Business.Constants.Messages;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -23,8 +25,8 @@ namespace Business.Concrete
     {
         private readonly IProductDal _productDal = productDal;
 
-        [CacheRemoveAspect(pattern:"IProductService.Get")]
-        [CacheRemoveAspect(pattern:"ICategoryService.Get")]
+        [CacheRemoveAspect(pattern: "IProductService.Get")]
+        [CacheRemoveAspect(pattern: "ICategoryService.Get")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
@@ -51,9 +53,10 @@ namespace Business.Concrete
             var result = _productDal.GetList().ToList();
             return new SuccessDataResult<List<Product>>(result, ProductMessages.ProductsListed);
         }
-        
+
         [SecuredOperation("Product.GetList,Admin")]
-        [CacheAspect(duration:1)]
+        [CacheAspect(duration: 1)]
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
             var result = _productDal.GetList(p => p.CategoryID==categoryId).ToList();
