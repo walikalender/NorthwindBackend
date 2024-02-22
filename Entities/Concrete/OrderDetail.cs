@@ -9,6 +9,7 @@ namespace Entities.Concrete
 {
     public class OrderDetail:IEntity
     {
+        public int ID { get; set; }
         public int OrderID { get; set; }
         public int ProductID { get; set; }
         public decimal UnitePrice { get; set; }
