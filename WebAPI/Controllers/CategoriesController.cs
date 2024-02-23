@@ -57,7 +57,7 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public IActionResult Update(Category category)
         {
             var result = _categoryService.Update(category);
