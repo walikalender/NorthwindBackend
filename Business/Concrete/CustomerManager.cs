@@ -32,7 +32,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<Customer> GetById(int customerId)
+        public IDataResult<Customer> GetById(string customerId)
         {
             var result = _customerDal.Get(c => c.CustomerID==customerId);
             return new SuccessDataResult<Customer>(result);

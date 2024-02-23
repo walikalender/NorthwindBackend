@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetById")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(string id)
         {
             var result = _customerService.GetById(id);
             return Ok(result);
@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
             return Ok();
         }
         [HttpDelete("delete")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
             var deletedEntity = _customerService.GetById(id).Data;
             _customerService.Delete(deletedEntity);
