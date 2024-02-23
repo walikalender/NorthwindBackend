@@ -14,11 +14,12 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    [ValidationAspect(typeof(CustomerValidator))]
+    
     [LogAspect(typeof(FileLogger))]
     public class CustomerManager(ICustomerDal customerDal) : ICustomerService
     {
         private readonly ICustomerDal _customerDal = customerDal;
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);

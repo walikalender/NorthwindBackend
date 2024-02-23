@@ -14,11 +14,12 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    [ValidationAspect(typeof(EmployeeValidator))]
+    
     [LogAspect(typeof(FileLogger))]
     public class EmployeeManager(IEmployeeDal employeeDal) : IEmployeeService
     {
         private readonly IEmployeeDal _employeeDal = employeeDal;
+        [ValidationAspect(typeof(EmployeeValidator))]
         public IResult Add(Employee employee)
         {
             _employeeDal.Add(employee);

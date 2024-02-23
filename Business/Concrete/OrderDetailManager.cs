@@ -14,11 +14,12 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    [ValidationAspect(typeof(OrderDetailValidator))]
+    
     [LogAspect(typeof(FileLogger))]
     public class OrderDetailManager(IOrderDetailDal orderDetailDal) : IOrderDetailService
     {
         private readonly IOrderDetailDal _orderDetailDal = orderDetailDal;
+        [ValidationAspect(typeof(OrderDetailValidator))]
         public IResult Add(OrderDetail orderDetail)
         {
             _orderDetailDal.Add(orderDetail);

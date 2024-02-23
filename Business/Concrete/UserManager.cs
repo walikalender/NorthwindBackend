@@ -15,11 +15,13 @@ using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
-    [ValidationAspect(typeof(UserValidator))]
+    
     [LogAspect(typeof(FileLogger))]
     public class UserManager(IUserDal userDal) : IUserService
     {
         private readonly IUserDal _userDal = userDal;
+
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
             _userDal.Add(user);

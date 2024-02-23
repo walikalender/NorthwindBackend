@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    [ValidationAspect(typeof(ProductValidator))]
+
     [LogAspect(typeof(FileLogger))]
     public class ProductManager(IProductDal productDal) : IProductService
     {
@@ -29,6 +29,7 @@ namespace Business.Concrete
 
         [CacheRemoveAspect(pattern: "IProductService.Get")]
         [CacheRemoveAspect(pattern: "ICategoryService.Get")]
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             _productDal.Add(product);
@@ -62,6 +63,7 @@ namespace Business.Concrete
             var result = _productDal.GetList(p => p.CategoryID==categoryId).ToList();
             return new SuccessDataResult<List<Product>>(result, ProductMessages.ProductsListed);
         }
+
         [TransactionScopeAspect]
         public IResult TransactionalOperation(Product product)
         {
@@ -70,6 +72,8 @@ namespace Business.Concrete
             return new SuccessResult(ProductMessages.ProductUpdated);
         }
 
+        [CacheRemoveAspect(pattern: "IProductService.GetList")]
+        [CacheRemoveAspect(pattern: "ICategoryService.GetList")]
         public IResult Update(Product product)
         {
             _productDal.Update(product);

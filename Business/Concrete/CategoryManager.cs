@@ -15,11 +15,12 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    [ValidationAspect(typeof(CategoryValidator))]
+   
     [LogAspect(typeof(FileLogger))]
     public class CategoryManager(ICategoryDal categoryDal) : ICategoryService
     {
         private readonly ICategoryDal _categoryDal = categoryDal;
+        [ValidationAspect(typeof(CategoryValidator))]
 
         public IResult Add(Category category)
         {
