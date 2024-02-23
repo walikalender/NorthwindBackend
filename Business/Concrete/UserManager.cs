@@ -8,9 +8,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
+    [ValidationAspect(typeof(UserValidator))]
+    [LogAspect(typeof(FileLogger))]
     public class UserManager(IUserDal userDal) : IUserService
     {
         private readonly IUserDal _userDal = userDal;

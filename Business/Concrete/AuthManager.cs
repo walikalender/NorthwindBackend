@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants.Messages;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
@@ -13,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
+    [LogAspect(typeof(FileLogger))]
     public class AuthManager(IUserService userService, ITokenHelper tokenHelper) : IAuthService
     {
         private readonly IUserService _userService = userService;

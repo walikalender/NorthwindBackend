@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -13,6 +15,7 @@ using System.Threading.Tasks;
 namespace Business.Concrete
 {
     [ValidationAspect(typeof(CustomerValidator))]
+    [LogAspect(typeof(FileLogger))]
     public class CustomerManager(ICustomerDal customerDal) : ICustomerService
     {
         private readonly ICustomerDal _customerDal = customerDal;

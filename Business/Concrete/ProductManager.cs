@@ -22,12 +22,13 @@ using System.Threading.Tasks;
 namespace Business.Concrete
 {
     [ValidationAspect(typeof(ProductValidator))]
+    [LogAspect(typeof(FileLogger))]
     public class ProductManager(IProductDal productDal) : IProductService
     {
         private readonly IProductDal _productDal = productDal;
 
         [CacheRemoveAspect(pattern: "IProductService.Get")]
-        [CacheRemoveAspect(pattern: "ICategoryService.Get")]    
+        [CacheRemoveAspect(pattern: "ICategoryService.Get")]
         public IResult Add(Product product)
         {
             _productDal.Add(product);
@@ -56,7 +57,6 @@ namespace Business.Concrete
 
         [SecuredOperation("Product.GetList,Admin")]
         [CacheAspect(duration: 1)]
-        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
             var result = _productDal.GetList(p => p.CategoryID==categoryId).ToList();
