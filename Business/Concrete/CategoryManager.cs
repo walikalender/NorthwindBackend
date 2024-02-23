@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants.Messages;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
+    [ValidationAspect(typeof(CategoryValidator))]
     public class CategoryManager(ICategoryDal categoryDal) : ICategoryService
     {
         private readonly ICategoryDal _categoryDal = categoryDal;

@@ -21,13 +21,13 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
+    [ValidationAspect(typeof(ProductValidator))]
     public class ProductManager(IProductDal productDal) : IProductService
     {
         private readonly IProductDal _productDal = productDal;
 
         [CacheRemoveAspect(pattern: "IProductService.Get")]
-        [CacheRemoveAspect(pattern: "ICategoryService.Get")]
-        [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect(pattern: "ICategoryService.Get")]    
         public IResult Add(Product product)
         {
             _productDal.Add(product);

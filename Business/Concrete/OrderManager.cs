@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
+    [ValidationAspect(typeof(OrderValidator))]
     public class OrderManager(IOrderDal orderDal) : IOrderService
     {
         private readonly IOrderDal _orderDal = orderDal;
