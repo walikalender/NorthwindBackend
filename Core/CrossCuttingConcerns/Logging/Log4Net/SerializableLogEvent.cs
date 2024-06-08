@@ -2,17 +2,12 @@
 
 using log4net.Core;
 
-namespace Core.CrossCuttingConcerns.Logging.Log4Net
+namespace MessageProject.Core.CrossCuttingConcerns.Logging.Log4Net
 {
     [Serializable]
-    public class SerializableLogEvent
+    public class SerializableLogEvent(LoggingEvent loggingEvent)
     {
-        LoggingEvent _loggingEvent;
-
-        public SerializableLogEvent(LoggingEvent loggingEvent)
-        {
-            _loggingEvent=loggingEvent;
-        }
+        private readonly LoggingEvent _loggingEvent = loggingEvent;
 
         public object Message => _loggingEvent.MessageObject;
     }

@@ -1,7 +1,7 @@
 ﻿using Castle.DynamicProxy;
-using Core.CrossCuttingConcerns.Validation;
-using Core.Utilities.Interceptors.Autofac;
-using Core.Utilities.Messages;
+using MessageProject.Core.CrossCuttingConcerns.Validation;
+using MessageProject.Core.Utilities.Interceptors.Autofac;
+using MessageProject.Core.Utilities.Messages;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -9,11 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Aspects.Autofac.Validation
+namespace MessageProject.Core.Aspects.Autofac.Validation
 {
     public class ValidationAspect : MethodInterception
     {
-        Type _validatorType;
+        private readonly Type _validatorType;
         public ValidationAspect(Type validatorType)
         {
             if (!typeof(IValidator).IsAssignableFrom(validatorType))

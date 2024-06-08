@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Core.CrossCuttingConcerns.Logging.Log4Net
+namespace MessageProject.Core.CrossCuttingConcerns.Logging.Log4Net
 {
     public class LoggerServiceBase
     {
-        ILog _logger;
+        private readonly ILog _logger;
         public LoggerServiceBase(string name)
         {
-            XmlDocument xmlDocument = new XmlDocument();
+            XmlDocument xmlDocument = new();
             xmlDocument.Load(File.OpenRead(path: "log4net.config"));
 
             ILoggerRepository loggerRepository = LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));

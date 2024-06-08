@@ -1,7 +1,7 @@
 ﻿using Castle.DynamicProxy;
-using Core.CrossCuttingConcerns.Caching;
-using Core.Utilities.Interceptors.Autofac;
-using Core.Utilities.IoC;
+using MessageProject.Core.CrossCuttingConcerns.Caching;
+using MessageProject.Core.Utilities.Interceptors.Autofac;
+using MessageProject.Core.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -9,17 +9,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Aspects.Autofac.Caching
+namespace MessageProject.Core.Aspects.Autofac.Caching
 {
-    public class CacheAspect : MethodInterception
+    public class CacheAspect(int duration) : MethodInterception
     {
-        private int _duration;
-        private ICacheManager _cacheManager;
-        public CacheAspect(int duration)
-        {
-            _duration = duration;
-            _cacheManager=ServiceTool.ServiceProvider.GetService<ICacheManager>();
-        }
+        private readonly int _duration = duration;
+        private readonly ICacheManager _cacheManager = ServiceTool.ServiceProvider.GetService<ICacheManager>();
+
         public override void Intercept(IInvocation invocation)
         {
             var methodName = string.Format($"{invocation.Method.ReflectedType.FullName}.{invocation.Method.Name}");

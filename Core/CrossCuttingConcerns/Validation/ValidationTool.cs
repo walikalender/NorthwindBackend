@@ -1,5 +1,5 @@
-﻿using Core.Entities;
-using Core.Utilities.Results;
+﻿using MessageProject.Core.Entities;
+using MessageProject.Core.Utilities.Results;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.CrossCuttingConcerns.Validation
+namespace MessageProject.Core.CrossCuttingConcerns.Validation
 {
     public static class ValidationTool
     {

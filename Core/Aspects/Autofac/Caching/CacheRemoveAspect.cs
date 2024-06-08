@@ -1,7 +1,7 @@
 ﻿using Castle.DynamicProxy;
-using Core.CrossCuttingConcerns.Caching;
-using Core.Utilities.Interceptors.Autofac;
-using Core.Utilities.IoC;
+using MessageProject.Core.CrossCuttingConcerns.Caching;
+using MessageProject.Core.Utilities.Interceptors.Autofac;
+using MessageProject.Core.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -11,15 +11,10 @@ using System.Threading.Tasks;
 
 namespace Core.Aspects.Autofac.Caching
 {
-    public class CacheRemoveAspect : MethodInterception
+    public class CacheRemoveAspect(string pattern) : MethodInterception
     {
-        private string _pattern;
-        private ICacheManager _cacheManager;
-        public CacheRemoveAspect(string pattern)
-        {
-            _pattern=pattern;
-            _cacheManager=ServiceTool.ServiceProvider.GetService<ICacheManager>();
-        }
+        private readonly string _pattern = pattern;
+        private readonly ICacheManager _cacheManager = ServiceTool.ServiceProvider.GetService<ICacheManager>();
 
         protected override void OnSuccess(IInvocation invocation)
         {

@@ -3,16 +3,11 @@ using Newtonsoft.Json;
 using System;
 using System.Text;
 
-namespace Core.CrossCuttingConcerns.Caching.Redis
+namespace MessageProject.Core.CrossCuttingConcerns.Caching.Redis
 {
-    public class RedisCacheManager : ICacheManager
+    public class RedisCacheManager(IDistributedCache distributedCache) : ICacheManager
     {
-        private readonly IDistributedCache _distributedCache;
-
-        public RedisCacheManager(IDistributedCache distributedCache)
-        {
-            _distributedCache = distributedCache ?? throw new ArgumentNullException(nameof(distributedCache));
-        }
+        private readonly IDistributedCache _distributedCache = distributedCache ?? throw new ArgumentNullException(nameof(distributedCache));
 
         public void Add(string key, object data, int duration)
         {
@@ -55,7 +50,7 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
         }
 
         // Nesneyi JSON'a dönüştürme
-        private byte[] SerializeObject(object obj)
+        private static byte[] SerializeObject(object obj)
         {
             if (obj == null)
                 return null;
@@ -65,7 +60,7 @@ namespace Core.CrossCuttingConcerns.Caching.Redis
         }
 
         // JSON'u nesneye dönüştürme
-        private T DeserializeObject<T>(byte[] data)
+        private static T DeserializeObject<T>(byte[] data)
         {
             if (data == null)
                 return default;

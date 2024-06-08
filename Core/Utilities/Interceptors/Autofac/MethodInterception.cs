@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Utilities.Interceptors.Autofac
+namespace MessageProject.Core.Utilities.Interceptors.Autofac
 {
     public abstract class MethodInterception : MethodInterceptionBaseAttribute
     {
@@ -15,8 +15,6 @@ namespace Core.Utilities.Interceptors.Autofac
         protected virtual void OnSuccess(IInvocation invocation) { }
         public override void Intercept(IInvocation invocation)
         {
-            var isSuccess = true;
-
             OnBefore(invocation);
             try
             {
@@ -25,7 +23,7 @@ namespace Core.Utilities.Interceptors.Autofac
             catch (Exception)
             {
 
-                isSuccess = false;
+                bool isSuccess = false;
                 OnException(invocation);
                 throw;
             }

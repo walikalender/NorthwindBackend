@@ -1,6 +1,6 @@
 ﻿using Castle.DynamicProxy;
-using Core.Utilities.Interceptors.Autofac;
-using Core.Utilities.IoC;
+using MessageProject.Core.Utilities.Interceptors.Autofac;
+using MessageProject.Core.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -9,18 +9,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Aspects.Autofac.Performance
+namespace MessageProject.Core.Aspects.Autofac.Performance
 {
-    public class PerformanceAspect : MethodInterception
+    public class PerformanceAspect(int interval) : MethodInterception
     {
-        private int _interval;
-        private Stopwatch _stopwatch;
-
-        public PerformanceAspect(int interval)
-        {
-            _interval=interval;
-            _stopwatch=ServiceTool.ServiceProvider.GetService<Stopwatch>();
-        }
+        private readonly int _interval = interval;
+        private readonly Stopwatch _stopwatch = ServiceTool.ServiceProvider.GetService<Stopwatch>();
 
         protected override void OnBefore(IInvocation invocation)
         {

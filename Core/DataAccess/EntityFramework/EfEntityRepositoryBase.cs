@@ -1,4 +1,4 @@
-﻿using Core.Entities;
+﻿using MessageProject.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.DataAccess.EntityFramework
+namespace MessageProject.Core.DataAccess.EntityFramework
 {
     public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
        where TEntity : class, IEntity, new()
@@ -35,11 +35,11 @@ namespace Core.DataAccess.EntityFramework
             return context.Set<TEntity>().SingleOrDefault(filter);
         }
 
-        public IList<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null)
+        public IList<TEntity> GetList(Expression<Func<TEntity, bool>>? filter = null)
         {
             using var context = new TContext();
             return filter==null
-                ? context.Set<TEntity>().ToList()
+                ? [.. context.Set<TEntity>()]
                 : context.Set<TEntity>().Where(filter).ToList();
         }
 

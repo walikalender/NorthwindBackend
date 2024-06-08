@@ -1,6 +1,6 @@
-﻿using Core.Entities.Concrete;
-using Core.Extensions;
-using Core.Utilities.Security.Encryption;
+﻿using MessageProject.Core.Entities.Concrete;
+using MessageProject.Core.Extensions;
+using MessageProject.Core.Utilities.Security.Encryption;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -11,13 +11,13 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Utilities.Security.Jwt
+namespace MessageProject.Core.Utilities.Security.Jwt
 {
     public class JwtHelper : ITokenHelper
     {
         public IConfiguration Configuration { get; }
-        private TokenOptions _tokenOptions;
-        DateTime _accessTokenExpiration;
+        private readonly TokenOptions _tokenOptions;
+        private readonly DateTime _accessTokenExpiration;
 
         public JwtHelper(IConfiguration configuration)
         {
@@ -56,7 +56,7 @@ namespace Core.Utilities.Security.Jwt
             return jwt;
         }
 
-        private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)
+        private static IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)
         {
 
             var claims = new List<Claim>();

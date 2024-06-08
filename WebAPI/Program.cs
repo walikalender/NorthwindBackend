@@ -16,8 +16,6 @@ var host = CreateHostBuilder(args).Build();
 host.Run();
 
 
-
-
 static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
     .ConfigureContainer<ContainerBuilder>(builder =>

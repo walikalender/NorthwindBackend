@@ -1,4 +1,4 @@
-﻿using Core.Utilities.IoC;
+﻿using MessageProject.Core.Utilities.IoC;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -8,11 +8,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Core.CrossCuttingConcerns.Caching.Microsoft
+namespace MessageProject.Core.CrossCuttingConcerns.Caching.Microsoft
 {
     public class MemoryCacheManager : ICacheManager
     {
-        private IMemoryCache _cache;
+        private readonly IMemoryCache _cache;
         public MemoryCacheManager()
         {
             _cache = ServiceTool.ServiceProvider.GetService<IMemoryCache>();
@@ -49,7 +49,7 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
             var cacheEntriesCollection = cacheEntriesCollectionDefinition.GetValue(_cache) as dynamic;
 
 
-            List<ICacheEntry> cacheCollectionValues = new List<ICacheEntry>();
+            List<ICacheEntry> cacheCollectionValues = [];
 
             foreach (var cacheItem in cacheEntriesCollection)
             {

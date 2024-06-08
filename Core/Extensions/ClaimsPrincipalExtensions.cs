@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Extensions
+namespace MessageProject.Core.Extensions
 {
     public static class ClaimsPrincipalExtensions
     {

@@ -1,7 +1,7 @@
-﻿using Core.CrossCuttingConcerns.Caching;
-using Core.CrossCuttingConcerns.Caching.Microsoft;
-using Core.CrossCuttingConcerns.Caching.Redis;
-using Core.Utilities.IoC;
+﻿using MessageProject.Core.CrossCuttingConcerns.Caching;
+using MessageProject.Core.CrossCuttingConcerns.Caching.Microsoft;
+using MessageProject.Core.CrossCuttingConcerns.Caching.Redis;
+using MessageProject.Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.DependencyResolvers
+namespace MessageProject.Core.DependencyResolvers
 {
     public class CoreModule : ICoreModule
     {
