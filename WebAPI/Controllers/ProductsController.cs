@@ -17,7 +17,7 @@ namespace WebAPI.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
         [HttpGet("getall")]
-       // [Authorize(Roles = "Product.List")]
+        // [Authorize(Roles = "Product.List")]
         public IActionResult GetList()
         {
             User.ClaimsRoles();
@@ -77,7 +77,7 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public IActionResult Update(Product product)
         {
             var result = _productService.Update(product);

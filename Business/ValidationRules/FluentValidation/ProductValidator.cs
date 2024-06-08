@@ -15,16 +15,14 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(p => p.ProductName).NotEmpty();
             RuleFor(p => p.ProductName).MinimumLength(2);
 
+            RuleFor(p => p.QuantityPerUnit).NotEmpty();
+
+            RuleFor(p => p.UnitsInStock).GreaterThanOrEqualTo((short)0);
+
+            RuleFor(p => p.UnitsOnOrder).GreaterThanOrEqualTo((short)0);
+
             RuleFor(p => p.UnitPrice).NotEmpty();
             RuleFor(p => p.UnitPrice).GreaterThanOrEqualTo(1);
-
-            RuleFor(p => p.ProductName).Must(StartWithA);
-
-        }
-
-        private bool StartWithA(string productName)
-        {
-            return productName.StartsWith("A");
         }
     }
 }

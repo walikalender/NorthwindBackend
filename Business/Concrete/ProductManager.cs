@@ -21,6 +21,8 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
+
+    [LogAspect(typeof(FileLogger))]
     public class ProductManager(IProductDal productDal) : IProductService
     {
         private readonly IProductDal _productDal = productDal;
@@ -56,12 +58,12 @@ namespace Business.Concrete
 
        // [SecuredOperation("Product.GetList,Admin")]
         [CacheAspect(duration: 1)]
-        [LogAspect(typeof(FileLogger))]
         public IDataResult<List<Product>> GetListByCategory(int categoryId)
         {
             var result = _productDal.GetList(p => p.CategoryID==categoryId).ToList();
             return new SuccessDataResult<List<Product>>(result, ProductMessages.ProductsListed);
         }
+
         [TransactionScopeAspect]
         public IResult TransactionalOperation(Product product)
         {
@@ -70,6 +72,8 @@ namespace Business.Concrete
             return new SuccessResult(ProductMessages.ProductUpdated);
         }
 
+        [CacheRemoveAspect(pattern: "IProductService.GetList")]
+        [CacheRemoveAspect(pattern: "ICategoryService.GetList")]
         public IResult Update(Product product)
         {
             _productDal.Update(product);

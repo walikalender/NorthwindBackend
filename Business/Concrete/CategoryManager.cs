@@ -1,5 +1,9 @@
 ﻿using Business.Abstract;
 using Business.Constants.Messages;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Logging;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -11,9 +15,12 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
+   
+    [LogAspect(typeof(FileLogger))]
     public class CategoryManager(ICategoryDal categoryDal) : ICategoryService
     {
         private readonly ICategoryDal _categoryDal = categoryDal;
+        [ValidationAspect(typeof(CategoryValidator))]
 
         public IResult Add(Category category)
         {
